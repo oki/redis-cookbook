@@ -28,6 +28,12 @@ tar_dir         = tar_file.sub(/\.tar\.gz$/, '')
 port            = node['redis']['port']
 redis_user      = node['redis']['source']['user']
 redis_group     = node['redis']['source']['group']
+arch            = node['redis']['source']['arch']
+
+# http://redis.io/topics/memory-optimization
+arch = arch == '32bit' ? arch : ''
+
+
 
 Array(node['redis']['source']['pkgs']).each { |pkg| package pkg }
 
@@ -50,7 +56,7 @@ end
 
 execute "Build #{tar_dir.split('/').last}" do
   cwd       "#{cache_dir}/#{tar_dir}"
-  command   %{make prefix=#{install_prefix} install}
+  command   %{make prefix=#{install_prefix} #{arch} install}
 
   creates   "#{install_prefix}/bin/redis-server"
 end

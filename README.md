@@ -29,6 +29,7 @@ Currently tested on Ubuntu 10.04 ONLY.
 	['redis']['source']['create_service']   # true
 	['redis']['source']['user']             # "redis"
 	['redis']['source']['group']            # "redis"
+	['redis']['source']['arch']            	# "32bit"
 
 # USAGE:
 
